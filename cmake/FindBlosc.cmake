@@ -50,7 +50,7 @@ FIND_PACKAGE_HANDLE_STANDARD_ARGS ( Blosc
 IF ( BLOSC_FOUND )
 
   SET ( BLOSC_LIBRARYDIR ${BLOSC_LOCATION}/lib
-    CACHE STRING "Blosc library directories")
+    CACHE STRING "Blosc library directories XXXXX")
 
   SET ( _blosc_library_name "blosc" )
   
