@@ -229,8 +229,6 @@ TARGET_LINK_LIBRARIES ( vdb_print
   openvdb_shared
   ${CMAKE_THREAD_LIBS_INIT}
   ${BLOSC_blosc_LIBRARY}
-  m
-  stdc++
   )
 
 SET ( VDB_RENDER_SOURCE_FILES cmd/openvdb_render/main.cc )
@@ -249,8 +247,6 @@ TARGET_LINK_LIBRARIES ( vdb_render
   ${Openexr_ILMIMF_LIBRARY}
   ${Ilmbase_ILMTHREAD_LIBRARY}
   ${Ilmbase_IEX_LIBRARY}
-  m
-  stdc++
   )
 
 SET ( VDB_VIEW_SOURCE_FILES
@@ -283,8 +279,6 @@ IF (NOT WIN32)
     ${GLFW_LINK_LIBRARY}
     ${GLFW_DEPENDENT_LIBRARIES}
     ${GLEW_GLEW_LIBRARY}
-    m
-    stdc++
     )
 ENDIF ()
 
@@ -392,8 +386,6 @@ IF ( OPENVDB_BUILD_UNITTESTS )
   TARGET_LINK_LIBRARIES ( vdb_test
     ${CPPUnit_cppunit_LIBRARY}
     openvdb_shared
-    m
-    stdc++
     )
 
   ADD_TEST ( vdb_unit_test vdb_test )
