@@ -47,7 +47,7 @@ SET ( HDK_VERSION_IN_SYS_SYS_VERSION_H ON )
 OPTION ( HDK_AUTO_GENERATE_SESITAG "Automatically generate <Target>_sesitag.C and add to SOP being built" OFF )
 
 # Houdini 15 and above defines version in SYS/SYS_Version.h
-SET ( HDK_VERSION_FILE_PATH "toolkit/include/SYS/SYS_Version.h" )
+SET ( HDK_VERSION_FILE_PATH "toolkit/include/sys/SYS_Version.h" )
 
 if(NOT ENV{HFS})
   message (STATUS "$HFS not set, using provided HDK_LOCATION: " ${HDK_LOCATION} )
@@ -77,18 +77,20 @@ IF (NOT HDK_LOCATION)
 ENDIF ()
 
 SET ( HDK_VERSION_FILE ${HDK_LOCATION}/${HDK_VERSION_FILE_PATH} )
-# MESSAGE ( "HDK_VERSION_FILE = ${HDK_VERSION_FILE}")
+#MESSAGE ( "HDK_VERSION_FILE = ${HDK_VERSION_FILE}")
 
 # Find out the current version
 IF ( HDK_VERSION_IN_SYS_SYS_VERSION_H )
   #
   FILE ( STRINGS "${HDK_VERSION_FILE}" hdk_major_version_str REGEX "^#define[\t ]+SYS_VERSION_MAJOR_INT[\t ]+.*")
+  #MESSAGE ( "hdk_major_version_str = ${hdk_major_version_str}")
   FILE ( STRINGS "${HDK_VERSION_FILE}" hdk_minor_version_str REGEX "^#define[\t ]+SYS_VERSION_MINOR_INT[\t ]+.*")
   FILE ( STRINGS "${HDK_VERSION_FILE}" hdk_build_version_str REGEX "^#define[\t ]+SYS_VERSION_BUILD_INT[\t ]+.*")
   FILE ( STRINGS "${HDK_VERSION_FILE}" hdk_patch_version_str REGEX "^#define[\t ]+SYS_VERSION_PATCH_INT[\t ]+.*")
   #
   STRING (REGEX REPLACE "^.*SYS_VERSION_MAJOR_INT[\t ]+([0-9]*).*$" "\\1"
 	HDK_MAJOR_VERSION_STRING "${hdk_major_version_str}")
+  #MESSAGE ( "HDK_MAJOR_VERSION_STRING = ${HDK_MAJOR_VERSION_STRING}")
   STRING (REGEX REPLACE "^.*SYS_VERSION_MINOR_INT[\t ]+([0-9]*).*$" "\\1"
 	HDK_MINOR_VERSION_STRING "${hdk_minor_version_str}")
   STRING (REGEX REPLACE "^.*SYS_VERSION_BUILD_INT[\t ]+([0-9]*).*$" "\\1"
@@ -179,7 +181,7 @@ IF (HDK_FOUND)
     # STRING ( REGEX REPLACE "-DVERSION=\"[0-9]+.[0-9]+.[0-9]+\" " "" HDK_DEFINITIONS_RAW "${TEMP_DEFINITIONS}")
     STRING ( REGEX REPLACE " -I \\.| -I \".*\"|-DVERSION=\"[0-9]+.[0-9]+.[0-9]+\" " "" HDK_DEFINITIONS_RAW "${TEMP_DEFINITIONS}")
 
-    STRING ( STRIP ${HDK_DEFINITIONS_RAW} HDK_DEFINITIONS)
+    STRING ( STRIP "${HDK_DEFINITIONS_RAW}" HDK_DEFINITIONS)
     # SET ( CMAKE_C_FLAGS ${HDK_DEFINITIONS})
     # SET ( CMAKE_CXX_FLAGS ${HDK_DEFINITIONS})
 
